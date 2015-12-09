@@ -40,7 +40,7 @@ class ArchiveOpenCallback : IArchiveOpenCallback
     ///
     void clear() { _password.clear; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IArchiveOpenCallback
     HRESULT SetTotal(const(UInt64)* files, const(UInt64)* bytes)
@@ -54,7 +54,7 @@ version(Posix) extern(Windows):
     extern(System)
     class CryptoGetTextPassword : ICryptoGetTextPassword
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
 
         HRESULT CryptoGetTextPassword(BSTR* password)
         { (*password) = _password.ptr; return S_OK; }
@@ -182,7 +182,7 @@ class ArchiveExtractToFileCallback : IArchiveExtractCallback
     @property @trusted @nogc pure nothrow
     int refCount() const { return _refCount; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IProgress
     HRESULT SetTotal(UInt64 size) {return S_OK;}
@@ -311,7 +311,7 @@ version(Posix) extern(Windows):
     extern(System)
     class CryptoGetTextPassword : ICryptoGetTextPassword
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
 
         HRESULT CryptoGetTextPassword(BSTR* password)
         { (*password) = _password.ptr; return S_OK; }
@@ -501,7 +501,7 @@ class ArchiveUpdateByFilesCallback : IArchiveUpdateCallback
     @property @trusted @nogc pure nothrow
     int refCount() const { return _refCount; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IProgress
     HRESULT SetTotal(UInt64 size) { return S_OK; }
@@ -580,7 +580,7 @@ version(Posix) extern(Windows):
     extern(System)
     private class CryptoGetTextPassword2 : ICryptoGetTextPassword2
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
 
         HRESULT CryptoGetTextPassword2( Int32* passwordIsDefined
                                         , BSTR* password )
@@ -697,7 +697,7 @@ class ArchiveExtractToMemCallback : IArchiveExtractCallback
     @property @trusted pure
     const(void)[] data(){ return _outStream is null ? null : _outStream.data; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IProgress
     HRESULT SetTotal(UInt64) { return S_OK; }
@@ -744,7 +744,7 @@ version(Posix) extern(Windows):
     extern(System)
     class CryptoGetTextPassword : ICryptoGetTextPassword
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
 
         HRESULT CryptoGetTextPassword(BSTR* password)
         {

@@ -710,7 +710,7 @@ void setDLLDir(string dir)
 
 void main()
 {
-    setDLLDir("bin64");
+    setDLLDir("bin");
 
     (cast(char[])"sample.7z".readArchive("a_file_in_the_archive.txt")).writeln;
 }

@@ -37,7 +37,7 @@ class InFileStream : IInStream
         if (_file.isOpen) _file.close;
     }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // for ISequentialInStream
     HRESULT Read(void* data, UInt32 size, UInt32* processedSize)
@@ -65,7 +65,7 @@ version(Posix) extern(Windows):
     extern(System)
     class StreamGetSize : IStreamGetSize
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
         HRESULT GetSize(UInt64* size)
         {
             return _onError.tryCode(
@@ -251,7 +251,7 @@ class OutFileStream : IOutStream
         { return SetFileTime(_file.windowsHandle, null, null, mTime); }
     }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IOutStream
     HRESULT Write(const(void)* data, UInt32 size, UInt32* processedSize)
@@ -332,7 +332,7 @@ class InMemStream : IInStream
     @property @trusted @nogc pure nothrow
     int refCount() const { return _refCount; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // for ISqeuentialInStream
     HRESULT Read(void* data, UInt32 size, UInt32* processedSize)
@@ -377,7 +377,7 @@ version(Posix) extern(Windows):
     extern(System)
     class StreamGetSize : IStreamGetSize
     {
-    version(Posix) extern(Windows):
+    extern(Windows):
         HRESULT GetSize(UInt64* size)
         {
             if (size) (*size) = _buf.length;
@@ -456,7 +456,7 @@ class OutMemStream : IOutStream
     @property @trusted @nogc pure nothrow
     int refCount() const { return _refCount; }
 
-version(Posix) extern(Windows):
+extern(Windows):
 
     // IOutStream
     HRESULT Write(const(void)* data, UInt32 size, UInt32* processedSize)
