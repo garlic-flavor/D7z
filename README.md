@@ -90,11 +90,13 @@ TODO
 
 VERSION
 -------
-UNDER CONSTRUCTION.(dmd2.069.0)
+UNDER CONSTRUCTION.(dmd2.069.2)
 
 History
 -------
-* 2015-12-01 ver.UC
+* 2015-12-09 ver.UC(dmd2.069.2) add implementation for on Linux.
+
+* 2015-12-01 ver.UC(dmd2.069.0) first release.
 
 
 * * *
@@ -183,8 +185,9 @@ COMを直接呼び出す場合
 
 ヴァージョン
 ------------
-UNDER CONSTRUCTION.(dmd2.069.0)
+UNDER CONSTRUCTION.(dmd2.069.2)
 
 履歴
 ----
-* 2015-12-01 ver.UC 初代
+* 2015-12-09 ver.UC(dmd2.069.2) Linux版追加。
+* 2015-12-01 ver.UC(dmd2.069.0) 初代
