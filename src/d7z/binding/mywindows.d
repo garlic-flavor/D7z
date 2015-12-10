@@ -1,6 +1,6 @@
 /** import or emulate windows.h
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 **/
@@ -10,6 +10,22 @@ You can use this module with $(LINK2 https://github.com/smjgordon/bindings/tree/
 
 To do that, please ensure that the win32.windows can be imported.
 $(D_INLINECODE import win32.windows;)
+
+Notice:
+when you use this module with $(LINK2 https://github.com/smjgordon/bindings/tree/master/win32, Win32 Bindings), please modify the declaration of IUnknown.QueryInterface in win32.unknwn.
+
+* IUnknown in Phobos.
+---
+HRESULT QueryInterface(const(IID)* riid, void** pvObject);
+---
+
+* IUnknown in $(LINK2 https://github.com/smjgordon/bindings/blob/master/win32/un
+knwn.d, Win32 Bindings)
+---
+HRESULT QueryInterface(IID* riid, void** pvObject);
+---
+
+i choose Phobos style. so, please modify 'IID*' to 'const(IID)*'.
 
 ToDo:
 Write implementations other than on windows.
@@ -178,8 +194,10 @@ else
     alias SCODE = LONG;
     version      (Windows)
         alias OLECHAR = WCHAR;
-    else version (Posix)
+    else version (linux)
         alias OLECHAR = dchar;
+    else
+        static assert(0, "need the declaration of OLECHAR for this OS.");
     alias BSTR = OLECHAR*;
     alias LPCOLESTR = const(OLECHAR)*;
 

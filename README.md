@@ -83,14 +83,20 @@ LICENSE
 
 TODO
 ----
-* Currentry, supported OS is only windows. so....
-
 * d7z.util is only for extraction. I wonder how implement to create/update an archive.
+
+* ~~Currentry, supported OS is only windows. so....~~(2015/12/09 add linux implementation.)
 
 
 VERSION
 -------
 UNDER CONSTRUCTION.(dmd2.069.2)
+
+DEVELOPMENT ENVIRONMENT
+-----------------------
+* Windows Vista x64 x dmd2.069.2 x Microsoft Visual C++ 2010 Express
+
+* Ubuntu 15.10 amd64 x dmd2.069.2 x g++ 5.2.1
 
 History
 -------
@@ -178,7 +184,7 @@ COMを直接呼び出す場合
 
 今後の方針
 ----------
-* Windows以外の環境に対応する。
+* ~~Windows以外の環境に対応する。~~ (2015/12/09 Linux版を追加)
 
 * d7z.util の拡充。(現在できるのは伸張のみ)
 
@@ -186,6 +192,13 @@ COMを直接呼び出す場合
 ヴァージョン
 ------------
 UNDER CONSTRUCTION.(dmd2.069.2)
+
+開発環境
+--------
+* Windows Vista x64 x dmd2.069.2 x Microsoft Visual C++ 2010 Express
+
+* Ubuntu 15.10 amd64 x dmd2.069.2 x g++ 5.2.1
+
 
 履歴
 ----

@@ -1,6 +1,6 @@
 /** Load 7-zip shared library.
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
  **/
@@ -69,10 +69,10 @@ static if (__traits(compiles, {import derelict.util.loader;}))
         }
     }
 
-    __gshared MyDerelict7zLoader My7z;
+    __gshared MyDerelict7zLoader D7z;
 
     shared static this() {
-        My7z = new MyDerelict7zLoader;
+        D7z = new MyDerelict7zLoader;
     }
 }
 else
@@ -112,7 +112,7 @@ else
         and then, search inside of directories in the standard search path.
 
         **/
-        struct My7z
+        struct D7z
         {
         static:
             private const(wchar)*[] libNames = [ "7z.dll", "7za.dll", "7zxa.dll"
@@ -176,9 +176,9 @@ else
             }
         }
     }
-    else
+    else version(linux)
     {
-        struct My7z
+        struct D7z
         {
             import core.sys.posix.dlfcn;
             alias SharedLibHandle = void*;
@@ -254,4 +254,6 @@ else
             }
         }
     }
+    else
+        static assert(0, "need to implement D7z for this operationg system.");
 }

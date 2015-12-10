@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 */
@@ -16,7 +16,7 @@ debug import std.stdio;
 ///
 alias BSTRING = immutable(OLECHAR)[];
 
-/** like enforce one.
+/** like enforce.
 
 Throws:
   when ret != S_OK, enOK throws Exception.
@@ -45,8 +45,8 @@ void enOK( HRESULT ret, Throwable t, string file = __FILE__
 alias OnErrorCallback = void delegate(Throwable);
 
 /**
-functions that will be called from DLL, shouldn't throw anything.
-wrap with tryCode(), and call OnErrorCallback().
+functions these will be called from DLL, shouldn't throw anything.
+wrap with tryCode(), and use OnErrorCallback.
 **/
 nothrow
 HRESULT tryCode(T)( OnErrorCallback cb, scope T proc
@@ -90,11 +90,12 @@ On Linux, BSTR = dchar*.
 **/
 struct BSTRIMPL
 {
+    import std.traits : isSomeChar;
     BSTR _payload;
     alias _payload this;
 
     ///
-    this(T)(const(T)[] filename)
+    this(T)(const(T)[] filename) if (isSomeChar!T)
     {
         import std.utf : toUTFz;
         alias toBSTRz = toUTFz!BSTR;

@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 */
@@ -37,7 +37,7 @@ extern(C) @nogc nothrow {
     alias da_SetLargePageMode
         = HRESULT function();
 
-    version(Posix)
+    version(linux)
     {
         alias da_SysAllocString = BSTR function(const(OLECHAR)*);
         alias da_SysFreeString = void function(BSTR);
@@ -59,7 +59,7 @@ __gshared {
     // da_SetCodecs SetCodecs;
     da_SetLargePageMode SetLargePageMode;
 
-    version(Posix)
+    version(linux)
     {
         da_SysAllocString SysAllocString;
         da_SysFreeString SysFreeString;

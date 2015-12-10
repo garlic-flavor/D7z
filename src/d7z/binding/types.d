@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 **/
@@ -18,10 +18,7 @@ alias Int32 = int;
 alias Int64 = long;
 alias UInt32 = uint;
 alias UInt64 = ulong;
-version     (Windows)
-    alias FChar = wchar;
-else version(Posix)
-    alias FChar = dchar;
+alias FChar = OLECHAR;
 alias PROPID = ULONG;
 alias CFSTR = const(FChar)*;
 

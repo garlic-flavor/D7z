@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 */
@@ -18,7 +18,7 @@ debug import std.stdio;
 //
 //==============================================================================
 /**
- * do clear().
+do clear().
 **/
 extern(System)
 class ArchiveOpenCallback : IArchiveOpenCallback
@@ -27,11 +27,13 @@ class ArchiveOpenCallback : IArchiveOpenCallback
 
     ///
     this(T)(OnErrorCallback cb = null, const(T)[] password = null)
-    if (isSomeChar!T)
+        if (isSomeChar!T)
     {
         _onError = cb;
         _password = BSTRIMPL(password);
     }
+
+    ~this(){ clear; }
 
     ///
     @property @trusted @nogc pure nothrow
@@ -98,7 +100,7 @@ extern(Windows):
     ULONG AddRef(){ return ++_refCount; }
     ULONG Release(){ return --_refCount; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -166,6 +168,8 @@ class ArchiveExtractToFileCallback : IArchiveExtractCallback
             _outDir = outDir.asNormalizedPath.to!BSTRING;
             _password = BSTRIMPL(password);
     }
+
+    ~this(){ clear; }
 
     ///
     void clear()
@@ -352,7 +356,7 @@ extern(Windows):
     ULONG AddRef(){ return ++_refCount; }
     ULONG Release(){ return --_refCount;; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -488,6 +492,8 @@ class ArchiveUpdateByFilesCallback : IArchiveUpdateCallback
         dirItems = items;
         _password = BSTRIMPL(password);
     }
+
+    ~this(){ clear; }
 
     ///
     void clear()
@@ -633,7 +639,7 @@ extern(Windows):
     ULONG AddRef(){return ++_refCount; }
     ULONG Release(){return --_refCount; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -677,6 +683,8 @@ class ArchiveExtractToMemCallback : IArchiveExtractCallback
         _onError = cb;
         _password = BSTRIMPL(password);
     }
+
+    ~this() { clear; }
 
     ///
     void clear()
@@ -762,7 +770,7 @@ extern(Windows):
         ULONG AddRef(){ return ++_refCount; }
         ULONG Release(){ return --_refCount; }
 
-        version(Posix)
+        version(linux)
         {
             void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
             void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -793,7 +801,7 @@ extern(Windows):
     ULONG AddRef(){ return ++_refCount; }
     ULONG Release(){ return --_refCount;; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }

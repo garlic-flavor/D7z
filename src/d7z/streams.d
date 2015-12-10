@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 */
@@ -28,7 +28,7 @@ class InFileStream : IInStream
     {
         import std.conv : to;
         _onError = cb;
-        _file = File(fileName.to!string, "rb");
+        _file = File(fileName, "rb");
     }
 
     ///
@@ -80,7 +80,7 @@ extern(Windows):
         ULONG AddRef(){ return 1; }
         ULONG Release(){ return 0; }
 
-        version(Posix)
+        version(linux)
         {
             void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
             void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -92,6 +92,7 @@ extern(Windows):
     version(Windows)
     {
         // for IStreamGetProps
+        extern(System)
         class StreamGetProps : IStreamGetProps
         {
             HRESULT GetProps( UInt64* size, FILETIME* cTime, FILETIME* aTime
@@ -123,6 +124,7 @@ extern(Windows):
 
 
         // for IStreamGetProps2
+        extern(System)
         class StreamGetProps2 : IStreamGetProps2
         {
             HRESULT GetProps2(CStreamFileProps* props)
@@ -156,12 +158,6 @@ extern(Windows):
             {return InFileStream.QueryInterface(riid, pvObject); }
             ULONG AddRef(){return ++_refCount; }
             ULONG Release(){return --_refCount; }
-
-            version(Posix)
-            {
-                void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
-                void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
-            }
         }
         StreamGetProps2 streamGetProps2Impl;
     }
@@ -212,7 +208,7 @@ extern(Windows):
     ULONG AddRef(){ return ++_refCount; }
     ULONG Release(){ return --_refCount; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -224,10 +220,11 @@ extern(System)
 class OutFileStream : IOutStream
 {
     import std.stdio : File;
+    import std.traits : isSomeChar;
     private File _file;
     private OnErrorCallback _onError;
 
-    this(const(OLECHAR)[] fileName, OnErrorCallback cb = null)
+    this(T)(const(T)[] fileName, OnErrorCallback cb = null) if (isSomeChar!T)
     {
         _onError = cb;
         _file = File(fileName, "wb");
@@ -304,7 +301,7 @@ extern(Windows):
     ULONG AddRef() {return 1;}
     ULONG Release() {return 0;}
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -390,7 +387,7 @@ extern(Windows):
         ULONG AddRef(){ return 1; }
         ULONG Release(){ return 0; }
 
-        version(Posix)
+        version(linux)
         {
             void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
             void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -420,7 +417,7 @@ extern(Windows):
     ULONG AddRef(){ return ++_refCount; }
     ULONG Release(){ return --_refCount; }
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }
@@ -517,7 +514,7 @@ extern(Windows):
     ULONG AddRef() {return ++_refCount;}
     ULONG Release() {return --_refCount;}
 
-    version(Posix)
+    version(linux)
     {
         void _DO_NOT_CALL_ME(){assert(0, "DO NOT CALL ME!"); }
         void _DO_NOT_CALL_ME_2(){assert(0, "DO NOT CALL ME!"); }

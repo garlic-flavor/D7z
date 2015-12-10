@@ -1,6 +1,6 @@
 /**
- * Version:      UC(dmd2.069.0)
- * Date:         2015-Dec-01 23:05:36
+ * Version:      UC(dmd2.069.2)
+ * Date:         2015-Dec-10 20:59:42
  * Authors:      KUMA
  * License:      CC0
 */
@@ -27,7 +27,7 @@ immutable(void)[] readArchive( string archivePath, string target
     import std.path : extension;
     import std.file : exists;
 
-    My7z.load;
+    D7z.load;
 
     if (!archivePath.exists)
         throw new Exception(archivePath ~ " is not found.");
@@ -323,7 +323,7 @@ private:
     {
         import std.path : extension;
 
-        My7z.load;
+        D7z.load;
 
         _path = toValidPath(path);
         _inStream = input;
@@ -703,7 +703,7 @@ void setDLLDir(string dir)
     }
     else version(Posix)
     {
-        My7z.setDLLDir(dir);
+        D7z.setDLLDir(dir);
     }
     else static assert(0);
 }
